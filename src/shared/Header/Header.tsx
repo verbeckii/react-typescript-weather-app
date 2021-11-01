@@ -9,9 +9,9 @@ interface Props {
 
 export const Header = (props: Props) => {
     const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
+        { value: 'Ribnita', label: 'Ribnita' },
+        { value: 'Brisbane', label: 'Brisbane' },
+        { value: 'Chisinau', label: 'Chisinau' }
     ]
 
     const colourStyles = {
