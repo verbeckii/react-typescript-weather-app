@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import { GlobalSvgSelector } from '../../assets/icons/global/GlobalSvgSelector'
+import { Theme } from '../../context/ThemeContext';
+import { useTheme } from '../../hooks/useTheme';
 import s from './Header.module.scss'
 
 interface Props {
@@ -8,6 +10,7 @@ interface Props {
 }
 
 export const Header = (props: Props) => {
+    const theme = useTheme();
     const options = [
         { value: 'Ribnita', label: 'Ribnita' },
         { value: 'Brisbane', label: 'Brisbane' },
@@ -17,7 +20,7 @@ export const Header = (props: Props) => {
     const colourStyles = {
         control: (styles: any) => ({
           ...styles,
-          backgroundColor: 0 ? '#4F4F4F' : 'rgba(71, 147, 255, 0.2)',
+          backgroundColor:theme.theme === Theme.DARK ? '#4F4F4F' : 'rgba(71, 147, 255, 0.2)',
           width: '194px',
           height: '37px',
           border: 'none',
@@ -26,9 +29,13 @@ export const Header = (props: Props) => {
         }),
         singleValue: (styles: any) => ({
           ...styles,
-          color: 0 ? '#fff' : '#000',
+          color: theme.theme === Theme.DARK ? '#fff' : '#000',
         }),
     };
+
+    function changeTheme() {
+        theme.changeTheme(theme.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
+    }
 
     return (
         <header className={s.header}>
@@ -39,7 +46,9 @@ export const Header = (props: Props) => {
                 <div className={s.title}>React weather</div>
             </div>
             <div className={s.wrapper}>
-                <div className={s.change_theme}>
+                <div className={s.change_theme} 
+                     onClick={changeTheme}
+                >
                     <GlobalSvgSelector id="change-theme" />
                 </div>
                 <Select 
